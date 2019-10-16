@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Let's consider a CPU, which has eight 32 bits registers x0-x7 and a 256 byte memory.
+Let's consider a CPU, which has 32 bits registers `x0`-`x255` and a 256 bytes memory.
 
 In this project, you need to implement a binary expression calculator.
 
@@ -16,7 +16,6 @@ The following operators will appear in this project:
 - `=`
 - `++`, `--` (including prefix and suffix, such as `x++`, `--y`, ... and so on)
 - `+`, `-` (expressions such as `+x`, `-y`, ... and so on)
-
 - others such as `>>`, `+=`, are unavailable and will not appear.
 
 ## Output
@@ -46,6 +45,8 @@ If the input expressions contains illegal expression, you should handle it with 
 
 - Note that both `rs1` and `rs2` can be a register or a value. However, `rd` must be a valid register.
 - All operands should be separated by a comma.
+- **Important: Using the first 8 registers has no penalty. However, using other registers would double the instruction cycle.**
+  - For example, `add r0, r1, r7` cost 10 cycles, while `add r8, r0, r23` cost 20 cycles.
 
 ## Variables
 
@@ -80,6 +81,8 @@ load x0, [8]
 add x0, x0, 5
 store [0], x0
 ```
+
+Total cycle cost: 200(load) + 10(add) + 200(store) = 410 cycles.
 
 ### Sample Input 2
 
