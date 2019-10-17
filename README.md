@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Let's consider a CPU, which has 32 bits registers `x0`-`x255` and a 256 bytes memory.
+Let's consider a CPU, which has 32 bits registers `r0`-`r255` and a 256 bytes memory.
 
 In this project, you need to implement a binary expression calculator.
 
@@ -77,9 +77,9 @@ x = z + 5
 ### Sample Output 1
 
 ```
-load x0 [8]
-add x0 x0 5
-store [0] x0
+load r0 [8]
+add r0 r0 5
+store [0] r0
 ```
 
 Total cycle cost: 200(load) + 10(add) + 200(store) = 410 cycles.
