@@ -44,9 +44,9 @@ If the input expressions contains illegal expression, you should handle it with 
 | rem    | `rd`     | `rs1`    | `rs2`    | Perform `rs1%rs2` and save the result into `rd`. | 60     |
 
 - Note that both `rs1` and `rs2` can be a register or a value. However, `rd` must be a valid register.
-- All operands should be separated by a comma.
+- All operands should be separated by a space.
 - **Important: Using the first 8 registers has no penalty. However, using other registers would double the instruction cycle.**
-  - For example, `add r0, r1, r7` cost 10 cycles, while `add r8, r0, r23` cost 20 cycles.
+  - For example, `add r0 r1 r7` cost 10 cycles, while `add r8 r0 r23` cost 20 cycles.
 
 ## Variables
 
@@ -77,9 +77,9 @@ x = z + 5
 ### Sample Output 1
 
 ```
-load x0, [8]
-add x0, x0, 5
-store [0], x0
+load x0 [8]
+add x0 x0 5
+store [0] x0
 ```
 
 Total cycle cost: 200(load) + 10(add) + 200(store) = 410 cycles.
