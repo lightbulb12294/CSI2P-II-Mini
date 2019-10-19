@@ -66,6 +66,10 @@ Illegal expressions such as:
 
 When an error occurs, your final output should contains only `Compile Error!`.
 
+**Note that in our testcase, there won't be any undefined behavior expression.**
+
+- You may check if an expression is undefined behavior by compiling with `-Wall` flag. If it is, there should be some warnings that show the word "undefined".
+
 ## Sample
 
 ### Sample Input 1
