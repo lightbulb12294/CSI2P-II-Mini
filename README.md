@@ -66,7 +66,7 @@ Illegal expressions such as:
 
 When an error occurs, your final output should contains only `Compile Error!`.
 
-**Note that in our testcase, there won't be any undefined behavior expression.**
+**Note that in our testcases, there won't be any undefined behavior expression.**
 
 - You may check if an expression is undefined behavior by compiling with `-Wall` flag. If it is, there should be some warnings that show the word "undefined".
 
@@ -107,9 +107,15 @@ Compile Error!
 
 The project includes 2 parts:
 
-1. The **5 basic testcases**, which will be provided by TAs.
-2. Contest: There will be **20 testcases** at demo time, each represents 5 points. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
+1. The **6 basic testcases**, which will be provided by TAs.
+2. Contest: There will be **24 testcases** at demo time, each represents 5 points. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
 
 ## Submission / Demo
 
-TBA
+- Submission Deadline: 12/19(四) 中午 12:00
+  - 上傳至iLMS
+  - 命名為 **學號.c**
+- Demo Time: 12/19(四) 晚上 6:30起
+  - 請務必出席，我們會當場用iLMS上上傳的code來驗收，並詢問code內容相關的問題。
+  - Demo完成後會在一定時間內公布通過的測資數與cycle數。
+  - 嚴禁抄襲。
