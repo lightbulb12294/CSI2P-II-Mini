@@ -91,7 +91,7 @@ Total cycle cost: 200(load) + 10(add) + 200(store) = 410 cycles.
 ### Sample Input 2
 
 ```c
-x = (y++) + (++y)
+x = (y++) + (++z)
 z = ++(y++)
 ```
 
