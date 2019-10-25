@@ -112,10 +112,10 @@ The project includes 2 parts:
 
 ## Submission / Demo
 
-- Submission Deadline: 11/06(三) 23:59
+- Submission Deadline: 11/13(三) 23:59
   - 上傳至iLMS
   - 命名為 **學號.c**
-- Demo Time: 11/07(四) 晚上 6:30起
+- Demo Time: 11/14(四) 晚上 6:30起
   - 請務必出席，我們會當場用iLMS上上傳的code來驗收，並詢問code內容相關的問題。
   - Demo完成後會在一定時間內公布通過的測資數與cycle數。
   - 嚴禁抄襲。
