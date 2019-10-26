@@ -137,7 +137,7 @@ Token *lexer(char *in) {
 				case '+':
 					if(in[i+1] == '+') { // '++'
 						tmp = prev;
-						while(tmp->kind == RPar) tmp = tmp->prev;
+						while(tmp != NULL && tmp->kind == RPar) tmp = tmp->prev;
 						if(tmp != NULL && tmp->kind == Variable)
 							(*now) = new_token(PostInc, 0);
 						else (*now) = new_token(PreInc, 0);
@@ -152,7 +152,7 @@ Token *lexer(char *in) {
 				case '-':
 					if(in[i+1] == '-') { // '--'
 						tmp = prev;
-						while(tmp->kind == RPar) tmp = tmp->prev;
+						while(tmp != NULL && tmp->kind == RPar) tmp = tmp->prev;
 						if(tmp != NULL && tmp->kind == Variable)
 							(*now) = new_token(PostDec, 0);
 						else (*now) = new_token(PreDec, 0);
