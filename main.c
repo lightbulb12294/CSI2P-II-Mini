@@ -53,7 +53,7 @@ AST *new_AST(Token *mid);
 // Convert Token linked list into array form.
 int list_to_arr(Token **head);
 // Use to check if the kind can be determined as a value section.
-int isValueSection(int kind);
+int isBinaryOperator(int kind);
 // Pass "kind" as parameter. Return true if it is an operator kind.
 int isOp(int x);
 // Pass "kind" as parameter. Return true if it is an unary kind.
@@ -144,7 +144,7 @@ Token *lexer(char *in) {
 						i++;
 					}
 					else { // '+'
-						if(prev != NULL && !isValueSection(prev->kind))
+						if(prev != NULL && isBinaryOperator(prev->kind))
 							(*now) = new_token(Plus, 0);
 						else (*now) = new_token(Add, 0);
 					}
@@ -159,7 +159,7 @@ Token *lexer(char *in) {
 						i++;
 					}
 					else { // '-'
-						if(prev != NULL && !isValueSection(prev->kind))
+						if(prev != NULL && isBinaryOperator(prev->kind))
 							(*now) = new_token(Minus, 0);
 						else (*now) = new_token(Sub, 0);
 					}
@@ -206,8 +206,11 @@ AST *parser(Token *arr, int l, int r) {
 	int mid = find_Tmid(arr, l, r);
 	AST *newN = new_AST(arr + mid);
 	
-	if(l == r || newN->type <= Variable)
-		return newN;
+	if(l == r) {
+		if(newN->type <= Variable)
+			return newN;
+		else err();
+	}
 
 	if(getOpLevel(arr[mid].kind) == 1) // a++, a--
 		newN->mid = parser(arr, l, mid-1);
@@ -289,10 +292,9 @@ int list_to_arr(Token **head) {
 	return res;
 }
 
-int isValueSection(int kind) {
-	if(kind == Variable) return 1;
-	if(kind == Value) return 1;
-	if(kind == RPar) return 1;
+int isBinaryOperator(int kind) {
+	int res = getOpLevel(kind);
+	if(res >= 3) return 1;
 	return 0;
 }
 
