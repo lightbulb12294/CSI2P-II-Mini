@@ -52,7 +52,7 @@ Token *new_token(int kind, int param);
 AST *new_AST(Token *mid);
 // Convert Token linked list into array form.
 int list_to_arr(Token **head);
-// Use to check if the kind can be determined as a value section.
+// Use to check if the kind can be determined as a binary operator.
 int isBinaryOperator(int kind);
 // Pass "kind" as parameter. Return true if it is an operator kind.
 int isOp(int x);
