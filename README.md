@@ -72,8 +72,8 @@ tokens:
     REM:        "%"
     PREINC:     "++"
     PREDEC:     "--"
-    POSTINC:     "++"
-    POSTDEC:     "--"
+    POSTINC:    "++"
+    POSTDEC:    "--"
     PLUS:       "+"
     MINUS:      "-"
     IDENTIFIER: xyz
@@ -142,6 +142,34 @@ When an error occurs, no matter how much your assembly has outputted, your outpu
 
 - You may check if an expression is undefined behavior by compiling a C program with `-Wall` flag. If it is, there should be some warnings that shows the word "undefined".
 
+## Assembly Compiler
+
+ASMC - Assembly Compiler, which recognizes our ISA instructions as input, then parse them and output the value of x, y, z, and total CPU cycle. The input should end with EOF.
+
+Note that ASMC is written in C++.
+
+### Prerequisites
+
+C++ compiler that supports standard version c++17 (which requires GCC 7 or higher).
+
+### Compile
+
+- With command-line
+
+  Run command:
+
+  ```
+  g++ -std=c++17 ASMC.cpp -o ASMC
+  ```
+
+  The executable file will be named as "ASMC".
+
+- With codeblocks (recommend version 20.03 or higher with minGW)
+
+  1. On toolbar, open `Settings -> Compiler...`.
+  2. In `Compiler settings` `Compiler Flags`, find a flag with name "C++17 ISO C++" and check it on.
+  3. Compile with codeblocks and execute.
+
 ## Sample
 
 ### Sample Input 1
@@ -153,7 +181,7 @@ x = z + 5
 ### Sample Output 1
 
 ```
-load r0 [128]
+load r0 [8]
 add r0 r0 5
 store [0] r0
 ```
@@ -170,7 +198,7 @@ z = ++(y++)
 ### Sample Output 2
 
 ```
-load r255 [0]
+load r255 [128]
 Compile Error!
 ```
 
@@ -182,7 +210,9 @@ Compile Error!
 The project includes 2 parts:
 
 1. The **6 basic testcases**, which will be provided by TAs.
-2. Contest: There will be **24 testcases** at demo time, each represents 5 points. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
+2. Contest: There will be **24 testcases** at demo time, each represents 5 points. The first-six testcases are the same as basic testcases. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
+
+We will use ASMC and our mini1 implementation to judge your code.
 
 ## Submission / Demo
 
