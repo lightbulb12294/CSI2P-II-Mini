@@ -43,9 +43,9 @@ If the input expressions contains illegal expression, you should handle it with 
 | div    | `rd`     | `rs1`    | `rs2`    | Perform `rs1/rs2` and save the result into `rd`. | 50     |
 | rem    | `rd`     | `rs1`    | `rs2`    | Perform `rs1%rs2` and save the result into `rd`. | 60     |
 
-- Note that both `rs1` and `rs2` can be a register or a value. However, `rd` must be a valid register.
+- Note that both `rs1` and `rs2` can be a register or a **non-negative integer**. However, `rd` must be a valid register.
 - All operands should be separated by spaces.
-- **Important: Using the first 8 registers has no penalty. However, using other registers would double the instruction cycle.**
+- Using the first 8 registers has no penalty. However, using other registers would double the instruction cycle.
   - For example, `add r0 r1 r7` cost 10 cycles, while `add r8 r0 r23` cost 20 cycles.
 
 ## Identifiers
