@@ -170,6 +170,20 @@ C++ compiler that supports standard version c++17 (which requires GCC 7 or highe
   2. In `Compiler settings` `Compiler Flags`, find a flag with name "C++17 ISO C++" and check it on.
   3. Compile with codeblocks and execute.
 
+### Instruction
+
+The initial value of (x, y, z) is (2, 3, 5). The final result of (x, y, z) will show up only when errors or EOF occur.
+
+**You are strongly recommended to use ASMC to debug.**
+
+With command-line, you can set the value of x, y, and z with given values by the following command:
+
+```
+./ASMC <x> <y> <z>
+```
+
+Replace `<x>`, `<y>`, and `<z>` with their initial values.
+
 ## Sample
 
 ### Sample Input 1
