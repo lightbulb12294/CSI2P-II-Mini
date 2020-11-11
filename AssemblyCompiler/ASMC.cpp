@@ -52,7 +52,7 @@ struct ASM
                 {
                     sscanf(t2[i], "%d", &tmp);
                     op[i] = Operand(tmp, Data::VAL);
-                    if(tmp >= 256 || tmp < 0) inst = Inst::INVALID;
+                    if(tmp < 0) inst = Inst::INVALID;
                 }
             }
         }
