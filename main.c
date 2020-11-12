@@ -192,7 +192,7 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 	AST *now = NULL;
 	if (l > r) {
 		if (S == STMT) return now;
-		else err("Unexcepted parsing range.");
+		else err("Unexpected parsing range.");
 	}
 	int nxt;
 	switch (S) {
