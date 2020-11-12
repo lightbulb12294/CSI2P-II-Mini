@@ -139,7 +139,7 @@ When an error occurs, no matter how much your assembly has outputted, your outpu
 
 - 1/0 (divide by 0)
 - x = x++ (a variable updated twice or more in a single expression)
-
+- 2147483647+1 (signed overflow)
 - You may check if an expression is undefined behavior by compiling a C program with `-Wall` flag. If it is, there should be some warnings that shows the word "undefined".
 
 ## Assembly Compiler
