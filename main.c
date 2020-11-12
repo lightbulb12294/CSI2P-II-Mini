@@ -190,11 +190,14 @@ AST *parser(Token *arr, size_t len) {
 
 AST *parse(Token *arr, int l, int r, GrammarState S) {
 	AST *now = NULL;
+	if (l > r) {
+		if (S == STMT) return now;
+		else err("Unexcepted parsing range.");
+	}
 	int nxt;
 	switch (S) {
 		case STMT:
-			if (l > r) return now;
-			else return parse(arr, l, r, EXPR);
+			return parse(arr, l, r, EXPR);
 		case EXPR:
 			return parse(arr, l, r, ASSIGN_EXPR);
 		case ASSIGN_EXPR:
