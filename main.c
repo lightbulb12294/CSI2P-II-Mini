@@ -10,7 +10,7 @@ For the language grammar, please refer to Grammar section on the github page:
 
 #define MAX_LENGTH 200
 typedef enum {
-	ASSIGN, ADD, SUB, MUL, DIV, REM, PREINC, PREDEC, POSTINC, POSTDEC, IDENTIFIER, CONSTANT, LPAR, RPAR, PLUS, MINUS
+	ASSIGN, ADD, SUB, MUL, DIV, REM, PREINC, PREDEC, POSTINC, POSTDEC, IDENTIFIER, CONSTANT, LPAR, RPAR, PLUS, MINUS, END
 } Kind;
 typedef enum {
 	STMT, EXPR, ASSIGN_EXPR, ADD_EXPR, MUL_EXPR, UNARY_EXPR, POSTFIX_EXPR, PRI_EXPR
@@ -81,6 +81,7 @@ int main() {
 	while (fgets(input, MAX_LENGTH, stdin) != NULL) {
 		Token *content = lexer(input);
 		size_t len = token_list_to_arr(&content);
+		token_print(content, len);
 		AST *ast_root = parser(content, len);
 		semantic_check(ast_root);
 		codegen(ast_root);
@@ -144,6 +145,7 @@ Token *lexer(const char *in) {
 		}
 		now = &((*now)->next);
 	}
+	(*now) = new_token(END, 0);
 	return head;
 }
 
@@ -190,14 +192,14 @@ AST *parser(Token *arr, size_t len) {
 
 AST *parse(Token *arr, int l, int r, GrammarState S) {
 	AST *now = NULL;
-	if (l > r) {
-		if (S == STMT) return now;
-		else err("Unexpected parsing range.");
-	}
+	if (l > r)
+		err("Unexpected parsing range.");
 	int nxt;
 	switch (S) {
 		case STMT:
-			return parse(arr, l, r, EXPR);
+			if (l == r && arr[l].kind == END)
+				return NULL;
+			else return parse(arr, l, r - 1, EXPR);
 		case EXPR:
 			return parse(arr, l, r, ASSIGN_EXPR);
 		case ASSIGN_EXPR:
@@ -312,7 +314,7 @@ void freeAST(AST *now) {
 
 void token_print(Token *in, size_t len) {
 	const static char KindName[][20] = {
-		"Assign", "Add", "Sub", "Mul", "Div", "Rem", "Inc", "Dec", "Inc", "Dec", "Identifier", "Constant", "LPar", "RPar", "Plus", "Minus"
+		"Assign", "Add", "Sub", "Mul", "Div", "Rem", "Inc", "Dec", "Inc", "Dec", "Identifier", "Constant", "LPar", "RPar", "Plus", "Minus", "End"
 	};
 	const static char KindSymbol[][20] = {
 		"'='", "'+'", "'-'", "'*'", "'/'", "'%'", "\"++\"", "\"--\"", "\"++\"", "\"--\"", "", "", "'('", "')'", "'+'", "'-'"
@@ -333,13 +335,16 @@ void token_print(Token *in, size_t len) {
 			case ASSIGN:
 			case PLUS:
 			case MINUS:
-				printf(format_str,i , KindName[in[i].kind], "symbol", KindSymbol[in[i].kind]);
+				printf(format_str, i, KindName[in[i].kind], "symbol", KindSymbol[in[i].kind]);
 				break;
 			case CONSTANT:
-				printf(format_int,i , KindName[in[i].kind], "value", in[i].val);
+				printf(format_int, i, KindName[in[i].kind], "value", in[i].val);
 				break;
 			case IDENTIFIER:
-				printf(format_str,i , KindName[in[i].kind], "name", (char*)(&(in[i].val)));
+				printf(format_str, i, KindName[in[i].kind], "name", (char*)(&(in[i].val)));
+				break;
+			case END:
+				printf("<Index = %3d>: %-10s\n", i, KindName[in[i].kind]);
 				break;
 			default:
 				puts("=== unknown token ===");

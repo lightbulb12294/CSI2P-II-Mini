@@ -63,7 +63,7 @@ Note that this only checks syntactical error such as "x++++y". However, semantic
 
 ```
 tokens:
-    END: end of line
+    END: end of an instruction
     ASSIGN:     "="
     ADD:        "+"
     SUB:        "-"
@@ -140,7 +140,7 @@ When an error occurs, no matter how much your assembly has outputted, your outpu
 - 1/0 (divide by 0)
 - x = x++ (a variable updated twice or more in a single expression)
 - 2147483647+1 (signed overflow)
-- You may check if an expression is undefined behavior by compiling a C program with `-Wall` flag. If it is, there should be some warnings that shows the word "undefined", or refer to this [website](https://en.cppreference.com/w/cpp/language/ub).
+- You may check if an expression is undefined behavior by compiling a C program with `-Wall` flag. If it is, there should be some warnings that shows the word "undefined", or refer to this [site](https://en.cppreference.com/w/cpp/language/ub).
 
 ## Assembly Compiler
 
@@ -150,7 +150,7 @@ Note that ASMC is written in C++.
 
 ### Prerequisites
 
-C++ compiler that supports standard version c++17 (which requires GCC 7 or higher).
+C++ compiler that supports standard version c++11.
 
 ### Compile
 
@@ -159,16 +159,14 @@ C++ compiler that supports standard version c++17 (which requires GCC 7 or highe
   Run command:
 
   ```
-  g++ -std=c++17 ASMC.cpp -o ASMC
+  g++ ASMC.cpp -o ASMC
   ```
 
   The executable file will be named as "ASMC".
 
-- With codeblocks (recommend version 20.03 or higher with minGW)
+- With codeblocks
 
-  1. On toolbar, open `Settings -> Compiler...`.
-  2. In `Compiler settings` `Compiler Flags`, find a flag with name "C++17 ISO C++" and check it on.
-  3. Compile with codeblocks and execute.
+  1. Compile with codeblocks and execute.
 
 ### Instruction
 
@@ -227,6 +225,8 @@ The project includes 2 parts:
 2. Contest: There will be **24 testcases** at demo time, each represents 5 points. The first-six testcases are the same as basic testcases. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
 
 We will use ASMC and our mini1 implementation to judge your code.
+
+**If your program runs more than 5 seconds in one testcase, you will get zero point at that testcase.**
 
 ## Submission / Demo
 

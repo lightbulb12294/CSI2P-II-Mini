@@ -32,7 +32,7 @@ struct ASM
         static char t1[30], t2[3][30];
         if(in == "Compile Error!")
             inst = Inst::CE;
-        else if(regex_match(in, regex(R"(^(add|sub|mul|div|rem) +r[0-9]+ +(r[0-9]+|[0-9]+) +(r[0-9]+|[0-9]+)$)")))
+        else if(regex_match(in, regex(R"(^(add|sub|mul|div|rem) +r[0-9]+ +(r[0-9]+|[0-9]+) +(r[0-9]+|[0-9]+) *$)")))
         {
             sscanf(in.c_str(), "%s%s%s%s", t1, t2[0], t2[1], t2[2]);
             if(!strcmp(t1, "add")) inst = Inst::ADD;
@@ -56,7 +56,7 @@ struct ASM
                 }
             }
         }
-        else if(regex_match(in, regex(R"(^load +r[0-9]+ +\[[0-9]+\]$)")))
+        else if(regex_match(in, regex(R"(^load +r[0-9]+ +\[[0-9]+\] *$)")))
         {
             sscanf(in.c_str(), "%*s r%d [%d]", &op[0].val, &op[1].val);
             inst = Inst::LOAD;
@@ -65,7 +65,7 @@ struct ASM
             if(op[0].val >= 256 || op[0].val < 0) inst = Inst::INVALID;
             if(op[1].val >= 256 || op[1].val < 0) inst = Inst::INVALID;
         }
-        else if(regex_match(in, regex(R"(^store +\[[0-9]+\] +r[0-9]+$)")))
+        else if(regex_match(in, regex(R"(^store +\[[0-9]+\] +r[0-9]+ *$)")))
         {
             sscanf(in.c_str(), "%*s [%d] r%d", &op[0].val, &op[1].val);
             inst = Inst::STORE;
@@ -118,6 +118,7 @@ vector<ASM> asm_list;
 // Return false if the ASM is invalid.
 bool insert_ASM(const string &in)
 {
+    if(regex_match(in, regex(R"(^ *$)"))) return true;
     asm_list.emplace_back(ASM(in));
     if(asm_list.back().inst == Inst::INVALID) return false;
     return true;
@@ -238,9 +239,9 @@ int main(int argc, char **argv)
         }
         lines++;
     }
-    auto [x, y, z] = evaluate(asm_list, init);
+    auto ans = evaluate(asm_list, init);
     int C = cycle(asm_list);
-    if(C != -1) printf("x, y, z = %d, %d, %d\nTotal cycle = %d\n", x, y, z, C);
+    if(C != -1) printf("x, y, z = %d, %d, %d\nTotal cycle = %d\n", get<0>(ans), get<1>(ans), get<2>(ans), C);
     else puts("CE instruction found.");
     return 0;
 }
