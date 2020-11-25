@@ -81,7 +81,7 @@ int main() {
 	while (fgets(input, MAX_LENGTH, stdin) != NULL) {
 		Token *content = lexer(input);
 		size_t len = token_list_to_arr(&content);
-		token_print(content, len);
+		if (len == 0) continue;
 		AST *ast_root = parser(content, len);
 		semantic_check(ast_root);
 		codegen(ast_root);
@@ -95,7 +95,7 @@ Token *lexer(const char *in) {
 	Token *head = NULL;
 	Token **now = &head;
 	for (int i = 0; in[i]; i++) {
-		if (in[i] == ' ' || in[i] == '\n') // ignore space and newline
+		if (isspace(in[i])) // ignore space characters
 			continue;
 		else if (isdigit(in[i])) {
 			(*now) = new_token(CONSTANT, atoi(in + i));
@@ -140,12 +140,14 @@ Token *lexer(const char *in) {
 			case ')':
 				(*now) = new_token(RPAR, 0);
 				break;
+			case ';':
+				(*now) = new_token(END, 0);
+				break;
 			default:
 				err("Unexpected character.");
 		}
 		now = &((*now)->next);
 	}
-	(*now) = new_token(END, 0);
 	return head;
 }
 
@@ -199,7 +201,9 @@ AST *parse(Token *arr, int l, int r, GrammarState S) {
 		case STMT:
 			if (l == r && arr[l].kind == END)
 				return NULL;
-			else return parse(arr, l, r - 1, EXPR);
+			else if (arr[r].kind == END)
+				return parse(arr, l, r - 1, EXPR);
+			else err("Expected \';\' at the end of line.");
 		case EXPR:
 			return parse(arr, l, r, ASSIGN_EXPR);
 		case ASSIGN_EXPR:

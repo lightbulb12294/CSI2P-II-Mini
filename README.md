@@ -63,7 +63,7 @@ Note that this only checks syntactical error such as "x++++y". However, semantic
 
 ```
 tokens:
-    END: end of an instruction
+    END:        ";"
     ASSIGN:     "="
     ADD:        "+"
     SUB:        "-"
@@ -124,13 +124,26 @@ PRI_EXPR
 
 ## Error Handler
 
-If this expression could be compiled by GCC, it's a legal expression. Otherwise it's illegal.
+The expression we designed is a subset of C expression statement. That is:
+
+- If this expression cannot be compiled by GCC, it's an illegal expression.
+- Our expression cannot be split into multiple lines, and there must be a `';'` at the end of an instruction.
 
 Illegal expressions such as:
 
-- x = 5++
-- y = (((7/3)
-- z = ++(y++)
+- ```
+  x = 5++;
+  ```
+- ```
+  y = (((7/3);
+  ```
+- ```
+  z = ++(y++);
+  ```
+- ```
+  x = y 
+    + 3;
+  ```
 - and all expressions that cannot pass GCC compilers should be handled by error handler.
 
 When an error occurs, no matter how much your assembly has outputted, your output **must contain `Compile Error!` with newline**.
@@ -187,24 +200,25 @@ Replace `<x>`, `<y>`, and `<z>` with their initial values.
 ### Sample Input 1
 
 ```c
-x = z + 5
+x = z + 5;
 ```
 
 ### Sample Output 1
 
 ```
 load r0 [8]
-add r0 r0 5
+add r1 0 5
+add r0 r0 r1
 store [0] r0
 ```
 
-- Total cycle cost: 200(load) + 10(add) + 200(store) = 410 cycles.
+- Total cycle cost: 200(load) + 2*10(add) + 200(store) = 420 cycles.
 
 ### Sample Input 2
 
 ```c
-x = (y++) + (++z)
-z = ++(y++)
+x = (y++) + (++z);
+z = ++(y++);
 ```
 
 ### Sample Output 2
@@ -217,12 +231,34 @@ Compile Error!
 - Note that in sample 2, the first expression is correct, while the second one causes compile error (semantic error).
 - The total cycle of compile error testcases will be recognized as 0.
 
+### Sample Input 3
+
+```c
+7 + (x = (y = 3 * 5) % 9);
+z = x * y;
+z = 3;
+```
+
+### Sample Output 3
+
+```
+add r0 0 6
+store [0] r0
+add r0 0 15
+store [4] r0
+add r0 1 2
+store [8] r0
+```
+
+- You don't actually need to keep the value of `x`, `y`, and `z` (i.e. `[0]`, `[4]`, and `[8]` in memory) correct after each expression, as long as the final result of `x`, `y`, and `z` is correct.
+- The instruction can be optimized, which means you can reduce the number of instructions while keeping the correctness of your answer as you wish.
+
 ## Score
 
 The project includes 2 parts:
 
 1. The **6 basic testcases**, which will be provided by TAs.
-2. Contest: There will be **24 testcases** at demo time, each represents 5 points. The first-six testcases are the same as basic testcases. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
+2. Contest: There will be **24 testcases** at demo time. The first-six testcases are the same as basic testcases. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
 
 We will use ASMC and our mini1 implementation to judge your code.
 
