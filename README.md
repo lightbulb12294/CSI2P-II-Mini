@@ -18,6 +18,9 @@ The following operators will appear in this project:
 - `+`, `-` (expressions such as `+x`, `-y`, ... and so on)
 - others such as `>>`, `+=`, are unavailable and will not appear.
 
+At most 15 lines per testcase, 195 characters per line.
+- That is, you don't have to change the value of `MAX_LENGTH` defined in the template.
+
 ## Output
 
 The output is a list of assembly codes. The instruction set architecture are listed in the table below.
@@ -262,7 +265,7 @@ The project includes 2 parts:
 
 We will use ASMC and our mini1 implementation to judge your code.
 
-**If your program runs more than 5 seconds in one testcase, you will get zero point at that testcase.**
+**If your program runs more than 5 seconds in one testcase or exceeds 512MB in memory usage, you will get zero point at that testcase.**
 
 ## Submission / Demo
 
