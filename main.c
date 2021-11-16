@@ -357,9 +357,8 @@ void token_print(Token *in, size_t len) {
 }
 
 void AST_print(AST *head) {
-	static char indent_str[MAX_LENGTH] = "";
-	static int indent = 0;
-	char *indent_now = indent_str + indent;
+	static char indent_str[MAX_LENGTH] = "  ";
+	static int indent = 2;
 	const static char KindName[][20] = {
 		"Assign", "Add", "Sub", "Mul", "Div", "Rem", "PreInc", "PreDec", "PostInc", "PostDec", "Identifier", "Constant", "Parentheses", "Parentheses", "Plus", "Minus"
 	};
@@ -367,6 +366,7 @@ void AST_print(AST *head) {
 	const static char format_str[] = "%s, <%s = %s>\n";
 	const static char format_val[] = "%s, <%s = %d>\n";
 	if (head == NULL) return;
+	char *indent_now = indent_str + indent;
 	indent_str[indent - 1] = '-';
 	printf("%s", indent_str);
 	indent_str[indent - 1] = ' ';
