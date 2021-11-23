@@ -256,6 +256,12 @@ store [8] r0
 - You don't actually need to keep the value of `x`, `y`, and `z` (i.e. `[0]`, `[4]`, and `[8]` in memory) correct after each expression, as long as the final result of `x`, `y`, and `z` is correct.
 - The instruction can be optimized, which means you can reduce the number of instructions while keeping the correctness of your answer as you wish.
 
+## Restrictions
+
+Function `itoa` is not allowed. Please use `sprintf` instead.
+
+- Our judge system is linux-based system. `itoa` is not included in standard library. You'll receive compile error if you call `itoa` function.
+
 ## Score
 
 The project includes 2 parts:
