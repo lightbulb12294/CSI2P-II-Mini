@@ -1,4 +1,4 @@
-# CSI2P II Mini Project 1
+# CSI2P II Mini Project
 
 ## Introduction
 
@@ -58,7 +58,7 @@ If the input expressions contains illegal expression, you should handle it with 
 
 ## Grammar
 
-Expression grammar for mini project 1.
+Expression grammar for mini project.
 
 Start with "statement".
 
@@ -269,18 +269,6 @@ The project includes 2 parts:
 1. The **6 basic testcases**, which will be provided by TAs.
 2. Contest: There will be **24 testcases** at demo time. The first-six testcases are the same as basic testcases. Besides, the code with **less total clock cycles** is better. The top 10% will **get extra points**.
 
-We will use ASMC and our mini1 implementation to judge your code.
+We will use ASMC and our mini project implementation to judge your code.
 
 **If your program runs more than 5 seconds in one testcase or exceeds 512MB in memory usage, you will get zero point at that testcase.**
-
-## Submission / Demo
-
-- Submission Deadline: 11/17(三) 23:59
-  - 上傳至iLMS
-  - 命名為 **mini1.c**
-- Demo Time: 11/18(四) 晚上 6:40起
-  - 請務必出席，我們會當場用iLMS上上傳的code來驗收，並詢問code內容相關的問題。
-  - Demo完成後會在一定時間內公布通過的測資數與cycle數。
-  - 嚴禁抄襲。
-
-- 若違反上述規則(未命名成mini1.c / 未出席demo ...etc)，TA有權斟酌扣分。情節重大者(抄襲 ...etc)可能會扣至0分。
