@@ -175,7 +175,7 @@ C++ compiler that supports standard version c++11.
   Run command:
 
   ```
-  g++ ASMC.cpp -o ASMC
+  g++ -std=c++11 ASMC.cpp -o ASMC
   ```
 
   The executable file will be named as "ASMC".
