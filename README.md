@@ -27,6 +27,10 @@ The output is a list of assembly codes. The instruction set architecture are lis
 
 If the input expressions contains illegal expression, you should handle it with the error handler. For the details, please refer to [**Error Handler**](#error-handler) below.
 
+The input expression is a subset of C expression, which means you can treat the input as part of C codes and get the corresponding value of `x`, `y`, and `z` if you initialize them correctly. The result of `x`, `y`, and `z` solved by your assembly should be identical to the result of C described above.
+
+You may refer to [**Sample**](#sample) section to see examples.
+
 ## Instruction Set Architecture
 
 ### Memory Operation
@@ -214,6 +218,10 @@ add r1 0 5
 add r0 r0 r1
 store [0] r0
 ```
+
+If we initialize `(x,y,z)=(2,3,5)` and execute the input as part of C codes to see the value of `x`, `y`, and `z`, the result would be `(x,y,z)=(10,3,5)`.
+
+Feed the output into ASMC, you'll get the result of `(x,y,z)=(10,3,5)`, which is identical to the result above, shows that the output is correct.
 
 - Total cycle cost: 200(load) + 2*10(add) + 200(store) = 420 cycles.
 
