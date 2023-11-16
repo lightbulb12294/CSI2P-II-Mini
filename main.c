@@ -339,19 +339,19 @@ void token_print(Token *in, size_t len) {
 			case ASSIGN:
 			case PLUS:
 			case MINUS:
-				printf(format_str, i, KindName[in[i].kind], "symbol", KindSymbol[in[i].kind]);
+				fprintf(stderr, format_str, i, KindName[in[i].kind], "symbol", KindSymbol[in[i].kind]);
 				break;
 			case CONSTANT:
-				printf(format_int, i, KindName[in[i].kind], "value", in[i].val);
+				fprintf(stderr, format_int, i, KindName[in[i].kind], "value", in[i].val);
 				break;
 			case IDENTIFIER:
-				printf(format_str, i, KindName[in[i].kind], "name", (char*)(&(in[i].val)));
+				fprintf(stderr, format_str, i, KindName[in[i].kind], "name", (char*)(&(in[i].val)));
 				break;
 			case END:
-				printf("<Index = %3d>: %-10s\n", i, KindName[in[i].kind]);
+				fprintf(stderr, "<Index = %3d>: %-10s\n", i, KindName[in[i].kind]);
 				break;
 			default:
-				puts("=== unknown token ===");
+				fputs("=== unknown token ===", stderr);
 		}
 	}
 }
@@ -368,7 +368,7 @@ void AST_print(AST *head) {
 	if (head == NULL) return;
 	char *indent_now = indent_str + indent;
 	indent_str[indent - 1] = '-';
-	printf("%s", indent_str);
+	fprintf(stderr, "%s", indent_str);
 	indent_str[indent - 1] = ' ';
 	if (indent_str[indent - 2] == '`')
 		indent_str[indent - 2] = ' ';
@@ -387,16 +387,16 @@ void AST_print(AST *head) {
 		case RPAR:
 		case PLUS:
 		case MINUS:
-			printf(format, KindName[head->kind]);
+			fprintf(stderr, format, KindName[head->kind]);
 			break;
 		case IDENTIFIER:
-			printf(format_str, KindName[head->kind], "name", (char*)&(head->val));
+			fprintf(stderr, format_str, KindName[head->kind], "name", (char*)&(head->val));
 			break;
 		case CONSTANT:
-			printf(format_val, KindName[head->kind], "value", head->val);
+			fprintf(stderr, format_val, KindName[head->kind], "value", head->val);
 			break;
 		default:
-			puts("=== unknown AST type ===");
+			fputs("=== unknown AST type ===", stderr);
 	}
 	indent += 2;
 	strcpy(indent_now, "| ");
